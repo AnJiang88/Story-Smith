@@ -9,8 +9,10 @@ function App() {
   const [prompt, setPrompt] = useState<string>("");
   const [userText, setUserText] = useState('');
   const [feedback, setFeedback] = useState<string>("");
+
   useEffect(() => {
   })
+  
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     chatCompletion(prompt, userText, 512).then((aiFeedback) => {
@@ -29,7 +31,6 @@ function App() {
             <UserInput userText={userText} setUserText={setUserText} onSubmitText={handleSubmit} />
             <FeedbackBubble text={feedback} />
           </div>
-          
         </section>
       </div>
     </>
