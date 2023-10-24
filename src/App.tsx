@@ -1,6 +1,4 @@
-import logo from './logo.svg';
-import './App.css';
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import Prompt from './Components/Prompt';
 import UserInput from './Components/UserInput';
 
