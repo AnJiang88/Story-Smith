@@ -1,8 +1,22 @@
-.user-input {
-  display: block;
+.title {
+  margin-bottom: 0;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .student-section {
   display: flex;
   align-items: flex-start;
+}
+
+.user-input {
+  display: block;
+}
+
+.submit-button {
+  margin-top: 10px;
 }

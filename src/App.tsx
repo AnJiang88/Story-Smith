@@ -24,12 +24,11 @@ function App() {
     <>
       <div className="container">
         <section className="main">
-          <h1>StorySmith</h1>
+          <h1 className="title">StorySmith</h1>
           <Prompt prompt={prompt} setPrompt={setPrompt} />
-          <br></br>
           <div className="student-section">
             <UserInput userText={userText} setUserText={setUserText} onSubmitText={handleSubmit} />
-            <FeedbackBubble text={feedback} />
+            {feedback && <FeedbackBubble text={feedback} />}
           </div>
         </section>
       </div>

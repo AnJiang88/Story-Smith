@@ -11,7 +11,7 @@ const Prompt: FC<PromptProps> = ({ prompt, setPrompt }) => {
 
     const generateNewPrompt = useCallback(() => {
         setLoadingPrompt(true);
-        textCompletion('Give a prompt for a creative writing assignment', 20).then((promptResponse) => {
+        textCompletion('Give a prompt for a creative writing assignment', 100).then((promptResponse) => {
             setPrompt(promptResponse)
             setLoadingPrompt(false);
         });
@@ -24,7 +24,7 @@ const Prompt: FC<PromptProps> = ({ prompt, setPrompt }) => {
 
     useEffect(() => {
         setPrompt('Write a story about a world where humans have the ability to communicate with animals.')
-    });
+    }, [setPrompt]);
 
     const onGeneratePrompt: ReactEventHandler<HTMLButtonElement> = () => {
         generateNewPrompt()

@@ -21,7 +21,7 @@ const UserInput: React.FC<UserInputProps> = ({ userText, setUserText, onSubmitTe
         rows={25}
         cols={50}
       />
-      <button onClick={onSubmitText}>Submit</button>
+      <button className="submit-button" onClick={onSubmitText}>Submit</button>
     </div>
   );
 };

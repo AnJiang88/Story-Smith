@@ -1,13 +1,16 @@
-$bubble-background-color: #ddddff;
+@import '../../variables.scss';
 
 .feedback-bubble {
   margin: 10px 0 0 30px;
   display: inline-block;
   position: relative;
-	background-color: $bubble-background-color;
+	background-color: $primary-color;
   padding: 1em;
   max-width: 350px;
-
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  
   &:after {
     content: ' ';
     position: absolute;
@@ -18,7 +21,7 @@ $bubble-background-color: #ddddff;
     top: 0px;
     bottom: auto;
     border: 22px solid;
-    border-color: $bubble-background-color transparent transparent transparent;
+    border-color: $primary-color transparent transparent transparent;
   }
   
 }
