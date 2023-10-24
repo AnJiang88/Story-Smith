@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react'
-import { BiSend } from 'react-icons/bi'
 import Prompt from './Components/Prompt';
 
 interface ChatData {
