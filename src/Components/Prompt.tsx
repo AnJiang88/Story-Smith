@@ -20,8 +20,8 @@ const Prompt: FC<PromptProps> = ({ prompt, setPrompt }) => {
 
     function generateNewPrompt() {
         setLoadingPrompt(true);
-        textCompletion('User: Give a prompt for a creative writing assignment\nAssistant: ', 100).then((res) => {
-            setPrompt(res)
+        textCompletion('Give a prompt for a creative writing assignment', 100).then((promptResponse) => {
+            setPrompt(promptResponse)
             setLoadingPrompt(false);
         });
     }
