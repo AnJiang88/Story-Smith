@@ -1,18 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
-import React, { useState, useEffect, useRef } from 'react'
-import Prompt from './components/Prompt';
-import UserInput from './components/UserInput';
-import { chatCompletion } from './api/api';
+import React, { useState, useEffect } from 'react'
+import Prompt from './Components/Prompt';
+import UserInput from './Components/UserInput';
+import FeedbackBubble from './Components/feedback/FeedbackBubble';
+import './App.scss';
 
 function App() {
   const [prompt, setPrompt] = useState<string>("");
   const [userText, setUserText] = useState('');
   const [feedback, setFeedback] = useState<string>("");
-
-  useEffect(() => {
-    
-  })
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -29,9 +24,11 @@ function App() {
           <h1>StorySmith</h1>
           <Prompt prompt={prompt} setPrompt={setPrompt} />
           <br></br>
-          <UserInput userText={userText} setUserText={setUserText} onSubmitText={handleSubmit} />
-          <br></br>
-          <p>{feedback}</p>
+          <div className="student-section">
+            <UserInput userText={userText} setUserText={setUserText} onSubmitText={handleSubmit} />
+            <FeedbackBubble text="Consider providing more specific details and examples to support your points. For example, blah blah blah testing testing" />
+          </div>
+          
         </section>
       </div>
     </>
