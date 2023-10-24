@@ -1,8 +1,6 @@
-import logo from './logo.svg';
-import './App.css';
-import React, { useState, useEffect, useRef } from 'react'
-import Prompt from './Components/Prompt';
-import UserInput from './Components/UserInput';
+import React, { useState, useEffect } from 'react'
+import Prompt from './components/Prompt';
+import UserInput from './components/UserInput';
 
 function App() {
   const [prompt, setPrompt] = useState<string>("");
