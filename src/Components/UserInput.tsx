@@ -15,6 +15,7 @@ const UserInput: React.FC<UserInputProps> = ({ userText, setUserText, onSubmitTe
   return (
     <div>
       <textarea
+        className="user-input"
         value={userText}
         onChange={handleInputChange}
         rows={25}

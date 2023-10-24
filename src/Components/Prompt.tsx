@@ -1,4 +1,4 @@
-import React, { useEffect, useState, FC, ReactEventHandler } from 'react';
+import React, { useEffect, useState, FC, ReactEventHandler, useCallback } from 'react';
 import { textCompletion } from '../api/api';
 
 interface PromptProps {
@@ -9,22 +9,26 @@ interface PromptProps {
 const Prompt: FC<PromptProps> = ({ prompt, setPrompt }) => {
     const [loadingPrompt, setLoadingPrompt] = useState(false);
 
+    const generateNewPrompt = useCallback(() => {
+        setLoadingPrompt(true);
+        textCompletion('Give a prompt for a creative writing assignment', 20).then((promptResponse) => {
+            setPrompt(promptResponse)
+            setLoadingPrompt(false);
+        });
+    }, [setLoadingPrompt, setPrompt])
+
+    // When we finish the app, we can uncomment this, but for now we should avoid making this request unless we want to
+    // useEffect(() => {
+    //     generateNewPrompt()
+    // }, [generateNewPrompt])
+
     useEffect(() => {
-        console.log("hi")
-        generateNewPrompt()
-    }, [])
+        setPrompt('Write a story about a world where humans have the ability to communicate with animals.')
+    });
 
     const onGeneratePrompt: ReactEventHandler<HTMLButtonElement> = () => {
         generateNewPrompt()
     };
-
-    function generateNewPrompt() {
-        setLoadingPrompt(true);
-        textCompletion('Give a prompt for a creative writing assignment', 100).then((promptResponse) => {
-            setPrompt(promptResponse)
-            setLoadingPrompt(false);
-        });
-    }
 
     return (
         <div>
