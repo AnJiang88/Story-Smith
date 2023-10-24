@@ -1,4 +1,5 @@
 import React, { useEffect, useState, FC, ReactEventHandler } from 'react';
+import { textCompletion } from '../api/api';
 
 interface PromptProps {
     prompt: string;
@@ -19,16 +20,10 @@ const Prompt: FC<PromptProps> = ({ prompt, setPrompt }) => {
 
     function generateNewPrompt() {
         setLoadingPrompt(true);
-        // textCompletion('User: Give a prompt for a creative writing assignment\nAssistant: ', 100).then((res) => {
-        //     setPrompt(res)
-        //     setLoadingPrompt(false);
-        // });
-       
-        setTimeout(() => {
-            console.log("here")
-            setPrompt("Write a story about...")
+        textCompletion('Give a prompt for a creative writing assignment', 100).then((promptResponse) => {
+            setPrompt(promptResponse)
             setLoadingPrompt(false);
-        }, 1000)
+        });
     }
 
     return (
