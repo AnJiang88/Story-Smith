@@ -3,15 +3,21 @@ import Prompt from './Components/Prompt';
 import UserInput from './Components/UserInput';
 import FeedbackBubble from './Components/feedback/FeedbackBubble';
 import './App.scss';
+import { chatCompletion } from './api/api';
 
 function App() {
   const [prompt, setPrompt] = useState<string>("");
   const [userText, setUserText] = useState('');
+  const [feedback, setFeedback] = useState<string>("");
 
+  useEffect(() => {
+  })
+  
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    // send userText to api
-    console.log('User text submitted:', userText);
+    chatCompletion(prompt, userText, 512).then((aiFeedback) => {
+      setFeedback(aiFeedback);
+    })
   };
 
   return (
@@ -23,9 +29,8 @@ function App() {
           <br></br>
           <div className="student-section">
             <UserInput userText={userText} setUserText={setUserText} onSubmitText={handleSubmit} />
-            <FeedbackBubble text="Consider providing more specific details and examples to support your points. For example, blah blah blah testing testing" />
+            <FeedbackBubble text={feedback} />
           </div>
-          
         </section>
       </div>
     </>
