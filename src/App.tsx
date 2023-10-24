@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import Prompt from './components/Prompt';
-import UserInput from './components/UserInput';
+import Prompt from './Components/Prompt';
+import UserInput from './Components/UserInput';
 
 function App() {
   const [prompt, setPrompt] = useState<string>("");
