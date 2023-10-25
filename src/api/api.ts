@@ -13,10 +13,10 @@ export async function chatCompletion(prompt: string, draft: string, maxTokens=51
   const systemMessage = {
     role: 'system',
     content: systemPrimer + prompt
-  }
+  };
   const userMessage = {
     role: 'user',
     content: draft
-  }
+  };
   return getChatCompletion([systemMessage, userMessage], maxTokens);
 }

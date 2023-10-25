@@ -12,18 +12,18 @@ const Prompt: FC<PromptProps> = ({ prompt, setPrompt }) => {
     const generateNewPrompt = useCallback(() => {
         setLoadingPrompt(true);
         textCompletion('Give a prompt for a creative writing assignment', 100).then((promptResponse) => {
-            setPrompt(promptResponse)
+            setPrompt(promptResponse);
             setLoadingPrompt(false);
         });
-    }, [setLoadingPrompt, setPrompt])
+    }, [setLoadingPrompt, setPrompt]);
 
     // When we finish the app, we can uncomment this, but for now we should avoid making this request unless we want to
     // useEffect(() => {
-    //     generateNewPrompt()
-    // }, [generateNewPrompt])
+    //     generateNewPrompt();
+    // }, [generateNewPrompt]);
 
     useEffect(() => {
-        setPrompt('Write a story about a world where humans have the ability to communicate with animals.')
+        setPrompt('Write a story about a world where humans have the ability to communicate with animals.');
     }, [setPrompt]);
 
     const onGeneratePrompt: ReactEventHandler<HTMLButtonElement> = () => {

@@ -6,18 +6,15 @@ import './App.scss';
 import { chatCompletion } from './api/api';
 
 function App() {
-  const [prompt, setPrompt] = useState<string>("");
-  const [userText, setUserText] = useState('');
-  const [feedback, setFeedback] = useState<string>("");
-
-  useEffect(() => {
-  })
+  const [prompt, setPrompt] = useState<string>('');
+  const [userText, setUserText] = useState<string>('');
+  const [feedback, setFeedback] = useState<string>('');
   
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     chatCompletion(prompt, userText, 512).then((aiFeedback) => {
       setFeedback(aiFeedback);
-    })
+    });
   };
 
   return (
@@ -33,7 +30,7 @@ function App() {
         </section>
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
