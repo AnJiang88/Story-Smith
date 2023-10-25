@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import Prompt from './Components/Prompt';
-import UserInput from './Components/UserInput';
-import FeedbackBubble from './Components/feedback/FeedbackBubble';
+import Prompt from './components/Prompt';
+import UserInput from './components/UserInput';
+import FeedbackBubble from './components/feedback/FeedbackBubble';
 import './App.scss';
 import { chatCompletion } from './api/api';
 
