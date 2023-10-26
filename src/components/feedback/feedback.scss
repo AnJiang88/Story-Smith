@@ -1,5 +1,11 @@
 @import '../../variables.scss';
 
+.feedback-log {
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+
 .feedback-bubble {
   margin: 10px 0 0 30px;
   display: inline-block;
@@ -24,5 +30,4 @@
     border: 22px solid;
     border-color: $primary-color transparent transparent transparent;
   }
-  
 }

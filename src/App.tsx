@@ -16,7 +16,7 @@ const devToolKeybindCondition = (event: KeyboardEvent) => event.altKey && event.
 function App() {
   const [prompt, setPrompt] = useState<string>('');
   const [userText, setUserText] = useState<string>('');
-  const [feedbackLog, setFeedbackLog] = useState<string[]>([]);
+  const [feedbackLog, setFeedbackLog] = useState<string[]>(['Welcome to StorySmith! Start writing your story in the textbox. When you are ready for feedback, click the "Get Feedback Now" button below, or select "Enable Autofeedback" to receive regular updates on how you\'re doing.']);
   const [isAutoFeedback, setIsAutoFeedback] = useState(false);
   const [sentenceCount, setSentenceCount] = useState(0);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
@@ -110,7 +110,9 @@ function App() {
                 setIsAutoFeedback={setIsAutoFeedback}
               />
             </div>
-            <FeedbackLog feedbackLog={feedbackLog}/>
+            <div className="right-content">
+              <FeedbackLog feedbackLog={feedbackLog}/>
+            </div>
           </div>
         </section>
         <ToastContainer hideProgressBar autoClose={2000}/>

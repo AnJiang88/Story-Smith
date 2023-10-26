@@ -1,5 +1,4 @@
 import React, { ChangeEvent } from 'react';
-import './userInput.scss';
 
 interface UserInputProps {
   userText: string;
