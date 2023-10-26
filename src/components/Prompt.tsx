@@ -13,7 +13,7 @@ const Prompt: FC<PromptProps> = ({ prompt, setPrompt }) => {
     setLoadingPrompt(true);
     textCompletion('Give a prompt for a creative writing assignment', 100).then((promptResponse) => {
       setPrompt(promptResponse)
-    setLoadingPrompt(false);
+      setLoadingPrompt(false);
     });
   }, [setLoadingPrompt, setPrompt])
 

@@ -81,7 +81,7 @@ function App() {
         </section>
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

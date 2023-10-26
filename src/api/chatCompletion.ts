@@ -15,7 +15,7 @@ const getChatCompletion = async (conversation: ChatConversation, maxTokens: numb
       maxTokens: maxTokens
     },
     conversation
-  }
+  };
 
   const response = await fetch(`${process.env.REACT_APP_OPENAI_API_URL}/${CHAT_COMPLETION}`, {
     method: 'POST',

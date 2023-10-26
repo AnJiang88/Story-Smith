@@ -8,7 +8,7 @@ const getTextCompletion = async (input: string, maxTokens: number): Promise<stri
       maxTokens: maxTokens
     },
     input
-  }
+  };
 
   const response = await fetch(`${process.env.REACT_APP_OPENAI_API_URL}/${TEXT_COMPLETION}`, {
     method: 'POST',
