@@ -35,6 +35,7 @@ function App() {
   const startInterval = () => {
     setSentenceCount(0);
     setIntervalId(setInterval(() => {
+      setSentenceCount(0)
       sendChatCompletion();
     }, 60000)); // 60 seconds
   };
