@@ -25,14 +25,21 @@
   }
 
   .content{
-
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    margin-left: 20px;
+    margin-right: 20px;
 
     .left-content {
-
+      flex-grow: 2;
+      flex-direction: column;
+      display: flex;
+      align-items: center;
     }
 
     .right-content {
-      
+
     }
   }
 }

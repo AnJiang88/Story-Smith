@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import Prompt from './components/Prompt';
-import UserInput from './components/UserInput';
+import Prompt from './components/prompt/Prompt';
+import UserInput from './components/userInput/UserInput';
 import FeedbackBubble from './components/feedback/FeedbackBubble';
 import './App.scss';
 import logo from './assets/storysmith-icon.png'
@@ -72,15 +72,15 @@ function App() {
           <div className="content">
             <div className="left-content">
               <Prompt prompt={prompt} setPrompt={setPrompt} />
-                <UserInput
-                  userText={userText}
-                  setUserText={setUserText}
-                  sentenceCount={sentenceCount}
-                  setSentenceCount={setSentenceCount}
-                  onSubmitText={handleSubmit}
-                  isAutoFeedback={isAutoFeedback}
-                  setIsAutoFeedback={setIsAutoFeedback}
-                />
+              <UserInput
+                userText={userText}
+                setUserText={setUserText}
+                sentenceCount={sentenceCount}
+                setSentenceCount={setSentenceCount}
+                onSubmitText={handleSubmit}
+                isAutoFeedback={isAutoFeedback}
+                setIsAutoFeedback={setIsAutoFeedback}
+              />
             </div>
             {feedback && <FeedbackBubble text={feedback} />}
           </div>

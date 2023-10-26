@@ -1,5 +1,6 @@
 import React, { useEffect, useState, FC, ReactEventHandler, useCallback } from 'react';
-import { textCompletion } from '../api/api';
+import { textCompletion } from '../../api/api';
+import './prompt.scss';
 
 interface PromptProps {
   prompt: string;
@@ -31,8 +32,8 @@ const Prompt: FC<PromptProps> = ({ prompt, setPrompt }) => {
   };
 
   return (
-    <div>
-      {!loadingPrompt && <p>{prompt}</p>}
+    <div className="main-prompt">
+      {!loadingPrompt && <p style={{color: 'white'}}>{prompt}</p>}
       {loadingPrompt && <p style={{color: 'orange'}}>Loading prompt...</p>}
       <button onClick={onGeneratePrompt}>Generate New Prompt</button>
     </div>
