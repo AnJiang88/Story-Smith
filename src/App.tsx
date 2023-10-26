@@ -110,7 +110,9 @@ function App() {
                 setIsAutoFeedback={setIsAutoFeedback}
               />
             </div>
-            {feedback && <FeedbackBubble text={feedback} />}
+            <div className="right-content">
+              {feedback && <FeedbackBubble text={feedback} />}
+            </div>
           </div>
         </section>
         <ToastContainer hideProgressBar autoClose={2000}/>
