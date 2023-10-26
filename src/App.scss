@@ -31,25 +31,22 @@
     justify-content: stretch;
     margin-left: 20px;
     margin-right: 20px;
+    margin-bottom: 20px;
     flex-grow: 2;
 
     .left-content {
-      flex-grow: 3;
+      width: 60%;
       flex-direction: column;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
     }
 
     .right-content {
-      flex-grow: 3;
+      width: 40%;
     }
   }
 }
 
 .user-input {
   display: block;
-}
-
-.submit-button {
-  margin-top: 10px;
 }
