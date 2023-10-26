@@ -1,23 +1,32 @@
 import getTextCompletion from "./textCompletion";
 import getChatCompletion from "./chatCompletion";
 
-export async function textCompletion(prompt: string, maxTokens=512) {
+export async function generatePrompt(prompt: string, maxTokens=512) {
   const input = `User:\n${prompt}\n\nAssistant:\n`;
   return getTextCompletion(input, maxTokens);
 }
 
-const systemPrimer = "You are an assistant for a student writing a creative story. They will ask for feedback, and you will respond with feedback without giving them full sentences."
+const rubric = `Descriptors:
+  -Ideas
+  Strong and creative story idea; specific, descriptive details; use of plot, setting, characters, conflict, and dialogue 
+  -Organization
+  Unified structure, clear direction, and clever transitions 
+  -Word Choice
+  Precise, rich language that expresses ideas and engages the reader
+  -Sentence Fluency and Voice
+  Rhythmic and flowing language, varied sentences, and unique perspective with ideas and details to appeal to the audience
+  -Conventions
+  Mechanical and grammatical accuracy`;
 
-export async function chatCompletion(prompt: string, draft: string, maxTokens=512) {
-  const systemMessage = {
-    role: 'system',
-    content: systemPrimer
-  }
-  const userMessage = {
-    role: 'user',
-    content: `Hi, here is my prompt that I'm writing about: ${prompt}\nHere is what I've written so far. Could you look over it and give specific feedback regarding grammar, sentence flow, and puncuation?\n\n${draft}`
-  }
-  return getChatCompletion([systemMessage, userMessage], maxTokens);
+export async function getFeedback(writing_assignment: string, draft: string, maxTokens=4096) {
+  
+  const prompt = `You are a helpful assistant for a student writing a story based on the following writing assignment: ${writing_assignment}.
+  Use concise expression to provide constructive pointers and suggestions to help the student improve their writing.
+  Focus on the descriptors in the following rubric and reference the rubric: ${rubric}. 
+  The following is the student's draft: ${draft}
+  Avoid writing for the student.`;
+
+  return getTextCompletion(prompt, maxTokens);
 }
 
 export async function writeStory(prompt: string, maxTokens=1024) {
