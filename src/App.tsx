@@ -92,7 +92,7 @@ function App() {
 
   const scrollToBottom = (id: string) => {
     const element = document.getElementById(id);
-    if (element) element.scrollTo(0, element.scrollHeight);
+    if (element) element.scrollTo(0, 0);
   }
 
   return (

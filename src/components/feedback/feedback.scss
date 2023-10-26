@@ -1,13 +1,12 @@
 @import '../../variables.scss';
 
 .feedback-log {
-  overflow-y: scroll;
-  overflow-x: hidden;
-  height: 85vh;
-  margin-bottom: 20px;
-  //display: flex;
-  //flex-direction: column-reverse;
-
+  overflow-y: hidden;
+  height: 100%;
+  margin: 0 auto 20px 50px;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
 }
 
 .feedback-bubble {
@@ -16,7 +15,7 @@
   position: relative;
 	background-color: $primary-color;
   padding: 1em;
-  max-width: 350px;
+  max-width: 500px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
