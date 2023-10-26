@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import Prompt from './components/Prompt';
-import UserInput from './components/UserInput';
+import Prompt from './components/prompt/Prompt';
+import UserInput from './components/userInput/UserInput';
 import FeedbackBubble from './components/feedback/FeedbackBubble';
 import './App.scss';
 import { getFeedback, incorporateFeedback, writeStory } from './api/api';
 import useKeybind from './hooks/useKeybind';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import logo from './assets/storysmith-icon.png'
 
 const MAX_SENTENCES = 3;
 
@@ -15,7 +16,7 @@ const devToolKeybindCondition = (event: KeyboardEvent) => event.altKey && event.
 function App() {
   const [prompt, setPrompt] = useState<string>('');
   const [userText, setUserText] = useState<string>('');
-  const [feedback, setFeedback] = useState<string>('');
+  const [feedback, setFeedback] = useState<string>('Welcome to StorySmith! Start writing your story in the textbox. When you are ready for feedback, click the "Get Feedback Now" button below, or select "Enable Autofeedback" to receive regular updates on how you\'re doing.');
   const [isAutoFeedback, setIsAutoFeedback] = useState(false);
   const [sentenceCount, setSentenceCount] = useState(0);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
@@ -92,19 +93,26 @@ function App() {
     <>
       <div className="container">
         <section className="main">
-          <h1 className="title">StorySmith</h1>
-          <Prompt prompt={prompt} setPrompt={setPrompt} />
-          <div className="student-section">
-          <UserInput
-            userText={userText}
-            setUserText={setUserText}
-            sentenceCount={sentenceCount}
-            setSentenceCount={setSentenceCount}
-            onSubmitText={handleSubmit}
-            isAutoFeedback={isAutoFeedback}
-            setIsAutoFeedback={setIsAutoFeedback}
-          />
-          {feedback && <FeedbackBubble text={feedback} />}
+          <div className="header">
+            <img className="logo" src={logo} alt="" />
+            <h1 className="title">StorySmith</h1>
+          </div>
+          <div className="content">
+            <div className="left-content">
+              <Prompt prompt={prompt} setPrompt={setPrompt} />
+              <UserInput
+                userText={userText}
+                setUserText={setUserText}
+                sentenceCount={sentenceCount}
+                setSentenceCount={setSentenceCount}
+                onSubmitText={handleSubmit}
+                isAutoFeedback={isAutoFeedback}
+                setIsAutoFeedback={setIsAutoFeedback}
+              />
+            </div>
+            <div className="right-content">
+              {feedback && <FeedbackBubble text={feedback} />}
+            </div>
           </div>
         </section>
         <ToastContainer hideProgressBar autoClose={2000}/>
