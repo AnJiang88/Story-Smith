@@ -18,11 +18,11 @@ const rubric = `Descriptors:
   -Conventions
   Mechanical and grammatical accuracy`;
 
-export async function getFeedback(writing_assignment: string, draft: string, maxTokens=4096) {
+export async function getFeedback(writing_assignment: string, draft: string, maxTokens=1024) {
   
   const prompt = `You are a helpful assistant for a student writing a story based on the following writing assignment: ${writing_assignment}.
-  Use concise expression to provide constructive pointers and suggestions to help the student improve their writing.
-  Focus on the descriptors in the following rubric and reference the rubric: ${rubric}. 
+  Use concise expression and less than 15 words to provide no more than 5 constructive pointers and suggestions to help the student improve their writing.
+  Focus on creativity inspiration and the descriptors in the following rubric and reference the rubric: ${rubric}. 
   The following is the student's draft: ${draft}
   Avoid writing for the student.`;
 
