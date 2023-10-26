@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Prompt from './components/Prompt';
 // @ts-ignore
 import UserInput from './components/UserInput';
+import FeedbackLog from "./Components/feedback/FeedbackLog";
 import './App.scss';
 import { chatCompletion, incorporateFeedback, writeStory } from './api/api';
 import useKeybind from './hooks/useKeybind';
