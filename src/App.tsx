@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from 'react'
-import Prompt from './components/Prompt';
-import UserInput from './components/UserInput';
-import FeedbackBubble from './components/feedback/FeedbackBubble';
+
 import './App.scss';
 import { chatCompletion } from './api/api';
+import Prompt from "./Components/Prompt";
+import UserInput from "./Components/UserInput";
+import FeedbackLog from "./Components/feedback/FeedbackLog";
+
 
 const MAX_SENTENCES = 3;
 
 function App() {
   const [prompt, setPrompt] = useState<string>('');
   const [userText, setUserText] = useState<string>('');
-  const [feedback, setFeedback] = useState<string>('');
+  // const [feedback, setFeedback] = useState<string>('');
+  const [feedbackLog, setFeedbackLog] = useState<string[]>([]);
   const [isAutoFeedback, setIsAutoFeedback] = useState(false);
   const [sentenceCount, setSentenceCount] = useState(0);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
+
 
   useEffect(() => {
     if (isAutoFeedback) {
@@ -56,7 +60,7 @@ function App() {
 
   const sendChatCompletion = () => { 
     chatCompletion(prompt, userText, 512).then((aiFeedback) => {
-      setFeedback(aiFeedback);
+        setFeedbackLog([...feedbackLog, aiFeedback]);
     })
   }
 
@@ -76,7 +80,7 @@ function App() {
             isAutoFeedback={isAutoFeedback}
             setIsAutoFeedback={setIsAutoFeedback}
           />
-            {feedback && <FeedbackBubble text={feedback} />}
+            <FeedbackLog feedbackLog={feedbackLog}/>
           </div>
         </section>
       </div>
