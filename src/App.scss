@@ -4,6 +4,7 @@
   flex-direction: column;
   gap: 10px;
   background-color: #262328;
+  overflow: hidden;
 
   .header {
     display: flex;
@@ -42,8 +43,14 @@
 
     .right-content {
       flex-grow: 3;
+      margin-right: 10px;
+      max-width: 30%;
     }
   }
+}
+
+.content::-webkit-scrollbar {
+  display: none;
 }
 
 .user-input {

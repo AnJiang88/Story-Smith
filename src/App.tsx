@@ -86,7 +86,13 @@ function App() {
   const sendChatCompletion = () => {
     chatCompletion(prompt, userText, 512).then((aiFeedback) => {
       setFeedbackLog([...feedbackLog, aiFeedback]);
+      scrollToBottom('feedback-log');
     })
+  }
+
+  const scrollToBottom = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) element.scrollTo(0, element.scrollHeight);
   }
 
   return (

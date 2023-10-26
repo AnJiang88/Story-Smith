@@ -2,8 +2,12 @@
 
 .feedback-log {
   overflow-y: scroll;
-  display: flex;
-  flex-direction: column;
+  overflow-x: hidden;
+  height: 85vh;
+  margin-bottom: 20px;
+  //display: flex;
+  //flex-direction: column-reverse;
+
 }
 
 .feedback-bubble {
@@ -25,7 +29,7 @@
     height: 0;
     left: -20px;
     right: auto;
-    top: 0px;
+    top: 0;
     bottom: auto;
     border: 22px solid;
     border-color: $primary-color transparent transparent transparent;

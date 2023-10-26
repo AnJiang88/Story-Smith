@@ -9,7 +9,7 @@ interface FeedbackLogProps {
 
 const FeedbackLog: FC<FeedbackLogProps> = ({ feedbackLog }) => {
     return (
-        <div className="feedback-log">
+        <div className="feedback-log" id="feedback-log">
             {feedbackLog.map((feedback, index) => (
                 <FeedbackBubble key={index} text={feedback} />
             ))}
