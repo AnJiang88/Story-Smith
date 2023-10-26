@@ -4,14 +4,13 @@ import UserInput from './components/UserInput';
 import FeedbackBubble from './components/feedback/FeedbackBubble';
 import './App.scss';
 import { chatCompletion } from './api/api';
-import { send } from 'process';
 
 const MAX_SENTENCES = 3;
 
 function App() {
-  const [prompt, setPrompt] = useState<string>("");
-  const [userText, setUserText] = useState('');
-  const [feedback, setFeedback] = useState<string>("");
+  const [prompt, setPrompt] = useState<string>('');
+  const [userText, setUserText] = useState<string>('');
+  const [feedback, setFeedback] = useState<string>('');
   const [isAutoFeedback, setIsAutoFeedback] = useState(false);
   const [sentenceCount, setSentenceCount] = useState(0);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
