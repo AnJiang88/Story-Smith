@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Prompt from './components/prompt/Prompt';
 import UserInput from './components/userInput/UserInput';
-import FeedbackLog from "./components/feedback/FeedbackLog";
+import FeedbackLog from './components/feedback/FeedbackLog';
 import './App.scss';
 import { chatCompletion, incorporateFeedback, writeStory } from './api/api';
 import useKeybind from './hooks/useKeybind';

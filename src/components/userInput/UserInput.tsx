@@ -1,4 +1,5 @@
 import React, { ChangeEvent } from 'react';
+import './userInput.scss';
 
 interface UserInputProps {
   userText: string;
@@ -38,21 +39,21 @@ const UserInput: React.FC<UserInputProps> = ({
         className="user-input"
         value={userText}
         onChange={handleInputChange}
-        rows={25}
-        cols={50}
       />
-      <button className="submit-button" onClick={onSubmitText}>
-        Get Feedback Now
-      </button>
-      <div>
-        <label>
-          <input
-            type="checkbox"
-            checked={isAutoFeedback}
-            onChange={handleCheckboxChange}
-          />
-          Enable AutoFeedback
-        </label>
+      <div className="controls">
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              checked={isAutoFeedback}
+              onChange={handleCheckboxChange}
+            />
+            Enable AutoFeedback
+          </label>
+        </div>
+        <button className="submit-button" onClick={onSubmitText}>
+          Get Feedback Now
+        </button>
       </div>
     </div>
   );
