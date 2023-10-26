@@ -3,6 +3,7 @@ import Prompt from './components/Prompt';
 import UserInput from './components/UserInput';
 import FeedbackBubble from './components/feedback/FeedbackBubble';
 import './App.scss';
+import logo from './assets/storysmith-icon.png'
 import { chatCompletion } from './api/api';
 
 const MAX_SENTENCES = 3;
@@ -64,18 +65,23 @@ function App() {
     <>
       <div className="container">
         <section className="main">
-          <h1 className="title">StorySmith</h1>
-          <Prompt prompt={prompt} setPrompt={setPrompt} />
-          <div className="student-section">
-          <UserInput
-            userText={userText}
-            setUserText={setUserText}
-            sentenceCount={sentenceCount}
-            setSentenceCount={setSentenceCount}
-            onSubmitText={handleSubmit}
-            isAutoFeedback={isAutoFeedback}
-            setIsAutoFeedback={setIsAutoFeedback}
-          />
+          <div className="header">
+            <img className="logo" src={logo} alt="" />
+            <h1 className="title">StorySmith</h1>
+          </div>
+          <div className="content">
+            <div className="left-content">
+              <Prompt prompt={prompt} setPrompt={setPrompt} />
+                <UserInput
+                  userText={userText}
+                  setUserText={setUserText}
+                  sentenceCount={sentenceCount}
+                  setSentenceCount={setSentenceCount}
+                  onSubmitText={handleSubmit}
+                  isAutoFeedback={isAutoFeedback}
+                  setIsAutoFeedback={setIsAutoFeedback}
+                />
+            </div>
             {feedback && <FeedbackBubble text={feedback} />}
           </div>
         </section>
