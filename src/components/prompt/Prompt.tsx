@@ -1,10 +1,6 @@
 import React, { useEffect, useState, FC, ReactEventHandler, useCallback } from 'react';
-<<<<<<< HEAD:src/components/Prompt.tsx
-import { generatePrompt } from '../api/api';
-=======
-import { textCompletion } from '../../api/api';
+import { generatePrompt } from '../../api/api';
 import './prompt.scss';
->>>>>>> 8dfbba74f871d5c0e0032fcc9d26d2c6d676154a:src/components/prompt/Prompt.tsx
 
 interface PromptProps {
   prompt: string;
