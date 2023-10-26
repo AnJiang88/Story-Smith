@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import Prompt from './components/Prompt';
-import UserInput from './components/UserInput';
+import Prompt from './components/prompt/Prompt';
+import UserInput from './components/userInput/UserInput';
 import FeedbackBubble from './components/feedback/FeedbackBubble';
 import './App.scss';
 import { chatCompletion, incorporateFeedback, writeStory } from './api/api';
 import useKeybind from './hooks/useKeybind';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import logo from './assets/storysmith-icon.png'
 
 const MAX_SENTENCES = 3;
 
@@ -92,19 +93,24 @@ function App() {
     <>
       <div className="container">
         <section className="main">
-          <h1 className="title">StorySmith</h1>
-          <Prompt prompt={prompt} setPrompt={setPrompt} />
-          <div className="student-section">
-          <UserInput
-            userText={userText}
-            setUserText={setUserText}
-            sentenceCount={sentenceCount}
-            setSentenceCount={setSentenceCount}
-            onSubmitText={handleSubmit}
-            isAutoFeedback={isAutoFeedback}
-            setIsAutoFeedback={setIsAutoFeedback}
-          />
-          {feedback && <FeedbackBubble text={feedback} />}
+          <div className="header">
+            <img className="logo" src={logo} alt="" />
+            <h1 className="title">StorySmith</h1>
+          </div>
+          <div className="content">
+            <div className="left-content">
+              <Prompt prompt={prompt} setPrompt={setPrompt} />
+              <UserInput
+                userText={userText}
+                setUserText={setUserText}
+                sentenceCount={sentenceCount}
+                setSentenceCount={setSentenceCount}
+                onSubmitText={handleSubmit}
+                isAutoFeedback={isAutoFeedback}
+                setIsAutoFeedback={setIsAutoFeedback}
+              />
+            </div>
+            {feedback && <FeedbackBubble text={feedback} />}
           </div>
         </section>
         <ToastContainer hideProgressBar autoClose={2000}/>

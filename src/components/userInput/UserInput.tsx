@@ -1,4 +1,5 @@
 import React, { ChangeEvent } from 'react';
+import './userInput.scss';
 
 interface UserInputProps {
   userText: string;
@@ -33,7 +34,7 @@ const UserInput: React.FC<UserInputProps> = ({
   };
 
   return (
-    <div>
+    <div className="main-userinput">
       <textarea
         className="user-input"
         value={userText}
