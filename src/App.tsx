@@ -42,6 +42,7 @@ function App() {
 
   const resetInterval = () => {
     if (isAutoFeedback) {
+      setSentenceCount(0)
       clearInterval(intervalId);
       startInterval();
     }
