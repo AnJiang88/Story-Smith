@@ -3,9 +3,14 @@ import Prompt from './components/Prompt';
 import UserInput from './components/UserInput';
 import FeedbackBubble from './components/feedback/FeedbackBubble';
 import './App.scss';
-import { chatCompletion } from './api/api';
+import { chatCompletion, incorporateFeedback, writeStory } from './api/api';
+import useKeybind from './hooks/useKeybind';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const MAX_SENTENCES = 3;
+
+const devToolKeybindCondition = (event: KeyboardEvent) => event.altKey && event.shiftKey && event.code === "KeyW";
 
 function App() {
   const [prompt, setPrompt] = useState<string>('');
@@ -14,19 +19,42 @@ function App() {
   const [isAutoFeedback, setIsAutoFeedback] = useState(false);
   const [sentenceCount, setSentenceCount] = useState(0);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
+  
+  const [devToolOn, setDevToolOn] = useState(false);
+  useKeybind(devToolKeybindCondition, () => {
+    setDevToolOn(!devToolOn);
+    toast.warn(`GPTStudent is now ${devToolOn ? 'off' : 'on'}`);
+  });
+
+  useEffect(() => {
+    if (devToolOn) {
+      
+      if (!feedback || !userText) {
+        setUserText('...GPTStudent is writing a story based on the prompt...');
+        writeStory(prompt).then((gptStory) => {
+          setUserText(gptStory)
+        });
+      } else {
+        setUserText('...GPTStudent is writing based on feedback...');
+        incorporateFeedback(userText, feedback).then((newText) => {
+          setUserText(newText);
+        });
+      }
+    }
+  }, [feedback, devToolOn]);
 
   useEffect(() => {
     if (isAutoFeedback) {
       startInterval();
     } else {
-      setSentenceCount(0)
+      setSentenceCount(0);
       clearInterval(intervalId);
     }   
   }, [isAutoFeedback]);
 
   useEffect(() => {
     if (sentenceCount === MAX_SENTENCES) {
-      setSentenceCount(0)
+      setSentenceCount(0);
       resetInterval();
       sendChatCompletion();
     };
@@ -41,7 +69,7 @@ function App() {
 
   const resetInterval = () => {
     if (isAutoFeedback) {
-      setSentenceCount(0)
+      setSentenceCount(0);
       clearInterval(intervalId);
       startInterval();
     }
@@ -56,8 +84,8 @@ function App() {
   const sendChatCompletion = () => { 
     chatCompletion(prompt, userText, 512).then((aiFeedback) => {
       setFeedback(aiFeedback);
-    })
-  }
+    });
+  };
 
   return (
     <>
@@ -75,9 +103,10 @@ function App() {
             isAutoFeedback={isAutoFeedback}
             setIsAutoFeedback={setIsAutoFeedback}
           />
-            {feedback && <FeedbackBubble text={feedback} />}
+          {feedback && <FeedbackBubble text={feedback} />}
           </div>
         </section>
+        <ToastContainer hideProgressBar autoClose={2000}/>
       </div>
     </>
   );

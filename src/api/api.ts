@@ -6,20 +6,34 @@ export async function textCompletion(prompt: string, maxTokens=512) {
   return getTextCompletion(input, maxTokens);
 }
 
-const systemPrimer = "You are my helpful assistant for writing a creative story. Read my creative writing and analyze it to see how it answers the prompt. Provide me constructive suggestions to help me improve my writing. Focus on giving me specific details, structure, and clarity. Give your response in short senteces and don't give me more than 40 words."
+const systemPrimer = "You are an assistant for a student writing a creative story. They will ask for feedback, and you will respond with feedback without giving them full sentences."
 
 export async function chatCompletion(prompt: string, draft: string, maxTokens=512) {
   const systemMessage = {
     role: 'system',
-    content: systemPrimer + prompt
-  }
-  const promptMessage = {
-    role: 'user',
-    content: "This is my prompt: " + prompt
+    content: systemPrimer
   }
   const userMessage = {
     role: 'user',
-    content: "Here is my draft:\n\n" + draft
+    content: `Hi, here is my prompt that I'm writing about: ${prompt}\nHere is what I've written so far. Could you look over it and give specific feedback regarding grammar, sentence flow, and puncuation?\n\n${draft}`
   }
-  return getChatCompletion([systemMessage, promptMessage, userMessage], maxTokens);
+  return getChatCompletion([systemMessage, userMessage], maxTokens);
+}
+
+export async function writeStory(prompt: string, maxTokens=1024) {
+  return await getTextCompletion(prompt + " (with only 3 paragraphs):\n", maxTokens);
+}
+
+export async function incorporateFeedback(currentUserInput: string, gptFeedback: string): Promise<string> {
+  const prompt =
+`This is a story that has been written
+${currentUserInput}
+
+Following the advice of this feedback:
+${gptFeedback}
+
+The story was edited to instead be:
+`;
+
+  return await getTextCompletion(prompt, 1024);
 }
