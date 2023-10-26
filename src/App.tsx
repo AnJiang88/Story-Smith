@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react'
-// @ts-ignore
-import Prompt from './components/Prompt';
-// @ts-ignore
-import UserInput from './components/UserInput';
-import FeedbackLog from "./Components/feedback/FeedbackLog";
+import Prompt from './components/prompt/Prompt';
+import UserInput from './components/userInput/UserInput';
+import FeedbackLog from "./components/feedback/FeedbackLog";
 import './App.scss';
 import { chatCompletion, incorporateFeedback, writeStory } from './api/api';
 import useKeybind from './hooks/useKeybind';
-// @ts-ignore
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import logo from './assets/storysmith-icon.png'
@@ -19,7 +16,6 @@ const devToolKeybindCondition = (event: KeyboardEvent) => event.altKey && event.
 function App() {
   const [prompt, setPrompt] = useState<string>('');
   const [userText, setUserText] = useState<string>('');
-  // const [feedback, setFeedback] = useState<string>('');
   const [feedbackLog, setFeedbackLog] = useState<string[]>([]);
   const [isAutoFeedback, setIsAutoFeedback] = useState(false);
   const [sentenceCount, setSentenceCount] = useState(0);
