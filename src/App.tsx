@@ -8,14 +8,15 @@ import useKeybind from './hooks/useKeybind';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import logo from './assets/storysmith-icon.png'
+import useStateAndRef from './hooks/useStateAndRef';
 
 const MAX_SENTENCES = 3;
 
 const devToolKeybindCondition = (event: KeyboardEvent) => event.altKey && event.shiftKey && event.code === "KeyW";
 
 function App() {
-  const [prompt, setPrompt] = useState<string>('');
-  const [userText, setUserText] = useState<string>('');
+  const [prompt, setPrompt, promptRef] = useStateAndRef<string>('');
+  const [userText, setUserText, userTextRef] = useStateAndRef<string>('');
   const [feedback, setFeedback] = useState<string>('Welcome to StorySmith! Start writing your story in the textbox. When you are ready for feedback, click the "Get Feedback Now" button below, or select "Enable Autofeedback" to receive regular updates on how you\'re doing.');
   const [isAutoFeedback, setIsAutoFeedback] = useState(false);
   const [sentenceCount, setSentenceCount] = useState(0);
@@ -87,7 +88,7 @@ function App() {
 
   const sendChatCompletion = () => { 
     setFeedbackIndicator(true);
-    getFeedback(prompt, userText, 512).then((aiFeedback) => {
+    getFeedback(promptRef.current, userTextRef.current, 512).then((aiFeedback) => {
       setFeedback(aiFeedback);
       setFeedbackIndicator(false);
     });

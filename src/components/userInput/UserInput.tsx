@@ -4,7 +4,7 @@ import { SpinnerCircular } from 'spinners-react';
 
 interface UserInputProps {
   userText: string;
-  setUserText: React.Dispatch<React.SetStateAction<string>>;
+  setUserText: (text: string) => void;
   sentenceCount: number;
   setSentenceCount: React.Dispatch<React.SetStateAction<number>>;
   onSubmitText: (event: React.FormEvent) => void;
