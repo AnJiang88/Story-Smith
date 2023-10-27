@@ -1,9 +1,11 @@
 import getTextCompletion from "./textCompletion";
 import getChatCompletion from "./chatCompletion";
+import trimQuotes from "../utils/trimQuotes";
 
 export async function textCompletion(prompt: string, maxTokens=512) {
   const input = `User:\n${prompt}\n\nAssistant:\n`;
-  return getTextCompletion(input, maxTokens);
+  const result = await getTextCompletion(input, maxTokens);
+  return trimQuotes(result);
 }
 
 const systemPrimer = "You are an assistant for a student writing a creative story. They will ask for feedback, and you will respond with feedback without giving them full sentences."
