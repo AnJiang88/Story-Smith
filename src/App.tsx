@@ -3,23 +3,25 @@ import Prompt from './components/prompt/Prompt';
 import UserInput from './components/userInput/UserInput';
 import FeedbackLog from './components/feedback/FeedbackLog';
 import './App.scss';
-import { chatCompletion, incorporateFeedback, writeStory } from './api/api';
+import { getFeedback, incorporateFeedback, writeStory } from './api/api';
 import useKeybind from './hooks/useKeybind';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import logo from './assets/storysmith-icon.png'
+import useStateAndRef from './hooks/useStateAndRef';
 
 const MAX_SENTENCES = 3;
 
 const devToolKeybindCondition = (event: KeyboardEvent) => event.altKey && event.shiftKey && event.code === "KeyW";
 
 function App() {
-  const [prompt, setPrompt] = useState<string>('');
-  const [userText, setUserText] = useState<string>('');
+  const [prompt, setPrompt, promptRef] = useStateAndRef<string>('');
+  const [userText, setUserText, userTextRef] = useStateAndRef<string>('');
   const [feedbackLog, setFeedbackLog] = useState<string[]>(['Welcome to StorySmith! Start writing your story in the textbox. When you are ready for feedback, click the "Get Feedback Now" button below, or select "Enable Autofeedback" to receive regular updates on how you\'re doing.']);
   const [isAutoFeedback, setIsAutoFeedback] = useState(false);
   const [sentenceCount, setSentenceCount] = useState(0);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
+  const [feedbackIndicator, setFeedbackIndicator] = useState(false);
 
   const [devToolOn, setDevToolOn] = useState(false);
   useKeybind(devToolKeybindCondition, () => {
@@ -62,6 +64,7 @@ function App() {
   }, [sentenceCount]);
 
   const startInterval = () => {
+    setFeedbackIndicator(false);
     setSentenceCount(0);
     setIntervalId(setInterval(() => {
       setSentenceCount(0)
@@ -83,12 +86,14 @@ function App() {
     sendChatCompletion();
   };
 
-  const sendChatCompletion = () => {
-    chatCompletion(prompt, userText, 512).then((aiFeedback) => {
+  const sendChatCompletion = () => { 
+    setFeedbackIndicator(true);
+    getFeedback(promptRef.current, userTextRef.current, 512).then((aiFeedback) => {
       setFeedbackLog([...feedbackLog, aiFeedback]);
+      setFeedbackIndicator(false);
       scrollToBottom('feedback-log');
-    })
-  }
+    });
+  };
 
   const scrollToBottom = (id: string) => {
     const element = document.getElementById(id);
@@ -114,6 +119,7 @@ function App() {
                 onSubmitText={handleSubmit}
                 isAutoFeedback={isAutoFeedback}
                 setIsAutoFeedback={setIsAutoFeedback}
+                isLoading={feedbackIndicator}
               />
             </div>
             <div className="right-content">

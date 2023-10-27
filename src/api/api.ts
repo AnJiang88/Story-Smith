@@ -1,14 +1,17 @@
 import getTextCompletion from "./textCompletion";
 import getChatCompletion from "./chatCompletion";
+import trimQuotes from "../utils/trimQuotes";
 
-export async function textCompletion(prompt: string, maxTokens=512) {
+export async function generatePrompt(prompt: string, maxTokens=512) {
   const input = `User:\n${prompt}\n\nAssistant:\n`;
-  return getTextCompletion(input, maxTokens);
+  const result = await getTextCompletion(input, maxTokens);
+  return trimQuotes(result);
 }
+
 
 const systemPrimer = "You are an assistant for a student writing a creative story. They will ask for feedback, and you will respond with feedback without giving them full sentences."
 
-export async function chatCompletion(prompt: string, draft: string, maxTokens=512) {
+export async function getFeedback(prompt: string, draft: string, maxTokens=512) {
   const systemMessage = {
     role: 'system',
     content: systemPrimer
@@ -20,9 +23,11 @@ export async function chatCompletion(prompt: string, draft: string, maxTokens=51
   return getChatCompletion([systemMessage, userMessage], maxTokens);
 }
 
+
 export async function writeStory(prompt: string, maxTokens=1024) {
   return await getTextCompletion(prompt + " (with only 3 paragraphs):\n", maxTokens);
 }
+
 
 export async function incorporateFeedback(currentUserInput: string, gptFeedback: string): Promise<string> {
   const prompt =

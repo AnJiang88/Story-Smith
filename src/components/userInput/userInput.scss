@@ -24,4 +24,13 @@
     justify-content: space-between;
     align-items: center;
   }
+
+  .feedback {
+    display: flex;
+    align-items: center;
+  }
+
+  .spinner {
+    margin-right: 5px;
+  }
 }
