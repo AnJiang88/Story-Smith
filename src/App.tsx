@@ -20,6 +20,7 @@ function App() {
   const [isAutoFeedback, setIsAutoFeedback] = useState(false);
   const [sentenceCount, setSentenceCount] = useState(0);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
+  const [feedbackIndicator, setFeedbackIndicator] = useState(false);
   
   const [devToolOn, setDevToolOn] = useState(false);
   useKeybind(devToolKeybindCondition, () => {
@@ -62,6 +63,7 @@ function App() {
   }, [sentenceCount]);
 
   const startInterval = () => {
+    setFeedbackIndicator(false);
     setSentenceCount(0);
     setIntervalId(setInterval(() => {
       setSentenceCount(0)
@@ -84,8 +86,10 @@ function App() {
   };
 
   const sendChatCompletion = () => { 
+    setFeedbackIndicator(true);
     chatCompletion(prompt, userText, 512).then((aiFeedback) => {
       setFeedback(aiFeedback);
+      setFeedbackIndicator(false);
     });
   };
 
@@ -108,6 +112,7 @@ function App() {
                 onSubmitText={handleSubmit}
                 isAutoFeedback={isAutoFeedback}
                 setIsAutoFeedback={setIsAutoFeedback}
+                isLoading={feedbackIndicator}
               />
             </div>
             <div className="right-content">
