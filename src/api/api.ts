@@ -6,24 +6,12 @@ export async function generatePrompt(prompt: string, maxTokens=512) {
   return getTextCompletion(input, maxTokens);
 }
 
-const rubric = `Descriptors:
-  -Ideas
-  Strong and creative story idea; specific, descriptive details; use of plot, setting, characters, conflict, and dialogue 
-  -Organization
-  Unified structure, clear direction, and clever transitions 
-  -Word Choice
-  Precise, rich language that expresses ideas and engages the reader
-  -Sentence Fluency and Voice
-  Rhythmic and flowing language, varied sentences, and unique perspective with ideas and details to appeal to the audience
-  -Conventions
-  Mechanical and grammatical accuracy`;
-
 export async function getFeedback(writing_assignment: string, draft: string, maxTokens=1024) {
   
-  const prompt = `You are a helpful assistant for a student writing a story based on the following writing assignment: ${writing_assignment}.
-  Use concise expression and less than 15 words to provide no more than 5 constructive pointers and suggestions to help the student improve their writing.
-  Focus on creativity inspiration and the descriptors in the following rubric and reference the rubric: ${rubric}. 
-  The following is the student's draft: ${draft}
+  const prompt = `You are a helpful assistant for a student writing a draft based on the following writing assignment: ${writing_assignment}.
+  Use concise expression to provide constructive pointers and suggestions in a single paragraph to help the student improve their writing.
+  The pointers and suggestions need to be specific to the content of the draft and explain how and why they can be improved on the aspects of creative story idea, descriptive details, and word choice. 
+  The whole feedback needs to be within 100 words.
   Avoid writing for the student.`;
 
   return getTextCompletion(prompt, maxTokens);
