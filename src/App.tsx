@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Prompt from './components/prompt/Prompt';
 import UserInput from './components/userInput/UserInput';
-import FeedbackBubble from './components/feedback/FeedbackBubble';
+import FeedbackLog from './components/feedback/FeedbackLog';
 import './App.scss';
 import { getFeedback, incorporateFeedback, writeStory } from './api/api';
 import useKeybind from './hooks/useKeybind';
@@ -17,12 +17,12 @@ const devToolKeybindCondition = (event: KeyboardEvent) => event.altKey && event.
 function App() {
   const [prompt, setPrompt, promptRef] = useStateAndRef<string>('');
   const [userText, setUserText, userTextRef] = useStateAndRef<string>('');
-  const [feedback, setFeedback] = useState<string>('Welcome to StorySmith! Start writing your story in the textbox. When you are ready for feedback, click the "Get Feedback Now" button below, or select "Enable Autofeedback" to receive regular updates on how you\'re doing.');
+  const [feedbackLog, setFeedbackLog] = useState<string[]>(['Welcome to StorySmith! Start writing your story in the textbox. When you are ready for feedback, click the "Get Feedback Now" button below, or select "Enable Autofeedback" to receive regular updates on how you\'re doing.']);
   const [isAutoFeedback, setIsAutoFeedback] = useState(false);
   const [sentenceCount, setSentenceCount] = useState(0);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
   const [feedbackIndicator, setFeedbackIndicator] = useState(false);
-  
+
   const [devToolOn, setDevToolOn] = useState(false);
   useKeybind(devToolKeybindCondition, () => {
     setDevToolOn(!devToolOn);
@@ -31,20 +31,20 @@ function App() {
 
   useEffect(() => {
     if (devToolOn) {
-      
-      if (!feedback || !userText) {
+
+      if (!feedbackLog || !userText) {
         setUserText('...GPTStudent is writing a story based on the prompt...');
         writeStory(prompt).then((gptStory) => {
           setUserText(gptStory)
         });
       } else {
         setUserText('...GPTStudent is writing based on feedback...');
-        incorporateFeedback(userText, feedback).then((newText) => {
+        incorporateFeedback(userText, feedbackLog[feedbackLog.length-1]).then((newText) => {
           setUserText(newText);
         });
       }
     }
-  }, [feedback, devToolOn]);
+  }, [feedbackLog, devToolOn]);
 
   useEffect(() => {
     if (isAutoFeedback) {
@@ -89,10 +89,16 @@ function App() {
   const sendChatCompletion = () => { 
     setFeedbackIndicator(true);
     getFeedback(promptRef.current, userTextRef.current, 512).then((aiFeedback) => {
-      setFeedback(aiFeedback);
+      setFeedbackLog([...feedbackLog, aiFeedback]);
       setFeedbackIndicator(false);
+      scrollToBottom('feedback-log');
     });
   };
+
+  const scrollToBottom = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) element.scrollTo(0, element.clientHeight);
+  }
 
   return (
     <>
@@ -117,7 +123,7 @@ function App() {
               />
             </div>
             <div className="right-content">
-              {feedback && <FeedbackBubble text={feedback} />}
+              <FeedbackLog feedbackLog={feedbackLog}/>
             </div>
           </div>
         </section>
