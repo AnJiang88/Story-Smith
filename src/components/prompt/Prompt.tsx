@@ -1,5 +1,5 @@
 import React, { useEffect, useState, FC, ReactEventHandler, useCallback } from 'react';
-import { textCompletion } from '../../api/api';
+import { generatePrompt } from '../../api/api';
 import './prompt.scss';
 
 interface PromptProps {
@@ -12,7 +12,7 @@ const Prompt: FC<PromptProps> = ({ prompt, setPrompt }) => {
 
   const generateNewPrompt = useCallback(() => {
     setLoadingPrompt(true);
-    textCompletion('Give a prompt for a creative writing assignment', 100).then((promptResponse) => {
+    generatePrompt('Give a prompt for a creative writing assignment', 100).then((promptResponse) => {
       setPrompt(promptResponse);
       setLoadingPrompt(false);
     });

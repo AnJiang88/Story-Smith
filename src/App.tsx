@@ -3,7 +3,7 @@ import Prompt from './components/prompt/Prompt';
 import UserInput from './components/userInput/UserInput';
 import FeedbackBubble from './components/feedback/FeedbackBubble';
 import './App.scss';
-import { chatCompletion, incorporateFeedback, writeStory } from './api/api';
+import { getFeedback, incorporateFeedback, writeStory } from './api/api';
 import useKeybind from './hooks/useKeybind';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -87,7 +87,7 @@ function App() {
 
   const sendChatCompletion = () => { 
     setFeedbackIndicator(true);
-    chatCompletion(prompt, userText, 512).then((aiFeedback) => {
+    getFeedback(prompt, userText, 512).then((aiFeedback) => {
       setFeedback(aiFeedback);
       setFeedbackIndicator(false);
     });
