@@ -7,6 +7,7 @@ interface FeedbackLogProps {
     feedbackLog: string[]
 }
 
+
 const FeedbackLog: FC<FeedbackLogProps> = ({ feedbackLog }) => {
     return (
         <div className="feedback-log" id="feedback-log">

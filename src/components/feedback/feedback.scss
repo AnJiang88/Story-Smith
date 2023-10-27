@@ -1,19 +1,26 @@
 @import '../../variables.scss';
 
 .feedback-log {
-  overflow-y: hidden;
+  overflow-y: auto;
   height: 100%;
   margin: 0 auto 20px 50px;
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: flex-end;
+  justify-content: end;
+}
+
+.feedback-log::-webkit-scrollbar {
+  display: none;
+}
+
+.feedback-log::-webkit-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .feedback-bubble {
   margin: 10px 0 0 30px;
   display: inline-block;
   position: relative;
-	background-color: $primary-color;
+  background-color: $primary-color;
   padding: 1em;
   max-width: 500px;
   border-top-right-radius: 5px;
