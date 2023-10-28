@@ -6,15 +6,26 @@ export async function generatePrompt(prompt: string, maxTokens=512) {
   return getTextCompletion(input, maxTokens);
 }
 
-export async function getFeedback(writing_assignment: string, draft: string, maxTokens=1024) {
-  
-  const prompt = `You are a helpful assistant for a student writing a draft based on the following writing assignment: ${writing_assignment}.
-  Use concise expression to provide constructive pointers and suggestions in a single paragraph to help the student improve their writing.
-  The pointers and suggestions need to be specific to the content of the draft and explain how and why they can be improved on the aspects of creative story idea, descriptive details, and word choice. 
-  The whole feedback needs to be within 100 words.
-  Avoid writing for the student.`;
+export async function getFeedback(prompt: string, draft: string, maxTokens=1024) {
+  const systemMessage = {
+    role: 'system',
+    content: `Imagine you are a writing coach collaborating with a student on a creative project.
+    The student has started a story, essay, or any piece of writing, and they need your guidance to enhance their work.
+    Provide constructive feedback, suggestions, and ideas to help the student improve their writing.
+    Focus on areas such as clarity, organization, creativity, and language use.
+    Point out strengths in their writing and offer specific advice on how they can build on those strengths.
+    Encourage them to explore new perspectives, expand on their ideas, and refine their arguments.
+    Your goal is to empower the student to develop their writing skills by providing thoughtful and insightful guidance.
+    Be supportive, encouraging, and specific in your feedback, helping the student to become a better writer.`
+  }
+  const userMessage = {
+    role: 'user',
+    content: `Hi, here is the prompt that I'm writing about: ${prompt}
+    Here is what I've written so far. ${draft}
+    Please assist me in my writing process without writing on behalf of me.`
+  }
 
-  return getTextCompletion(prompt, maxTokens);
+  return getChatCompletion([systemMessage, userMessage], maxTokens);
 }
 
 export async function writeStory(prompt: string, maxTokens=1024) {
