@@ -4,7 +4,7 @@ import './prompt.scss';
 
 interface PromptProps {
   prompt: string;
-  setPrompt: React.Dispatch<React.SetStateAction<string>>;
+  setPrompt: (prompt: string) => void;
 }
 
 const Prompt: FC<PromptProps> = ({ prompt, setPrompt }) => {
@@ -13,7 +13,7 @@ const Prompt: FC<PromptProps> = ({ prompt, setPrompt }) => {
   const generateNewPrompt = useCallback(() => {
     setLoadingPrompt(true);
     generatePrompt('Give a prompt for a creative writing assignment', 100).then((promptResponse) => {
-      setPrompt(promptResponse)
+      setPrompt(promptResponse);
       setLoadingPrompt(false);
     });
   }, [setLoadingPrompt, setPrompt])

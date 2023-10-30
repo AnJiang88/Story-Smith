@@ -1,9 +1,11 @@
 import getTextCompletion from "./textCompletion";
 import getChatCompletion from "./chatCompletion";
+import trimQuotes from "../utils/trimQuotes";
 
 export async function generatePrompt(prompt: string, maxTokens=512) {
   const input = `User:\n${prompt}\n\nAssistant:\n`;
-  return getTextCompletion(input, maxTokens);
+  const result = await getTextCompletion(input, maxTokens);
+  return trimQuotes(result);
 }
 
 export async function getFeedback(prompt: string, draft: string, maxTokens=1024) {
@@ -36,9 +38,11 @@ export async function getFeedback(prompt: string, draft: string, maxTokens=1024)
   return getChatCompletion([systemMessage, userMessage1, assistantMessage, userMessage2], maxTokens);
 }
 
+
 export async function writeStory(prompt: string, maxTokens=1024) {
   return await getTextCompletion(prompt + " (with only 3 paragraphs):\n", maxTokens);
 }
+
 
 export async function incorporateFeedback(currentUserInput: string, gptFeedback: string): Promise<string> {
   const prompt =
