@@ -88,7 +88,7 @@ function App() {
 
   const sendChatCompletion = () => { 
     setFeedbackIndicator(true);
-    getFeedback(promptRef.current, userTextRef.current, 512).then((aiFeedback) => {
+    getFeedback(promptRef.current, userTextRef.current, 1024).then((aiFeedback) => {
       setFeedbackLog([...feedbackLog, aiFeedback]);
       setFeedbackIndicator(false);
       scrollToBottom('feedback-log');

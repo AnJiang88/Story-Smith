@@ -8,19 +8,34 @@ export async function generatePrompt(prompt: string, maxTokens=512) {
   return trimQuotes(result);
 }
 
-
-const systemPrimer = "You are an assistant for a student writing a creative story. They will ask for feedback, and you will respond with feedback without giving them full sentences."
-
-export async function getFeedback(prompt: string, draft: string, maxTokens=512) {
+export async function getFeedback(prompt: string, draft: string, maxTokens=1024) {
   const systemMessage = {
     role: 'system',
-    content: systemPrimer
+    content: `Imagine you are a writing coach collaborating with a student on a creative project.
+    The student has started a story, essay, or any piece of writing, and they need your guidance to enhance their work.
+    Provide constructive feedback, suggestions, and ideas to help the student improve their writing.
+    Focus on areas such as clarity, organization, creativity, and language use.
+    Point out strengths in their writing and offer specific advice on how they can build on those strengths.
+    Encourage them to explore new perspectives, expand on their ideas, and refine their arguments.
+    Your goal is to empower the student to develop their writing skills by providing thoughtful and insightful guidance.
+    Be supportive, encouraging, and specific in your feedback, helping the student to become a better writer.`
   }
-  const userMessage = {
+  const userMessage1 = {
     role: 'user',
-    content: `Hi, here is my prompt that I'm writing about: ${prompt}\nHere is what I've written so far. Could you look over it and give specific feedback regarding grammar, sentence flow, and puncuation?\n\n${draft}`
+    content: `Hi, here is the prompt that I'm writing about: ${prompt}
+    Here is what I've written so far. ${draft}
+    Please assist me in my writing process without writing on behalf of me.`
   }
-  return getChatCompletion([systemMessage, userMessage], maxTokens);
+  const assistantMessage = {
+    role: 'assistant',
+    content: await getChatCompletion([systemMessage, userMessage1], maxTokens)
+  }
+  const userMessage2 = {
+    role: 'user',
+    content: `Summarize the feedback above into a concise summary that is 100 words long.`
+  }
+
+  return getChatCompletion([systemMessage, userMessage1, assistantMessage, userMessage2], maxTokens);
 }
 
 
