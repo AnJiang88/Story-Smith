@@ -18,14 +18,22 @@ export async function getFeedback(prompt: string, draft: string, maxTokens=1024)
     Your goal is to empower the student to develop their writing skills by providing thoughtful and insightful guidance.
     Be supportive, encouraging, and specific in your feedback, helping the student to become a better writer.`
   }
-  const userMessage = {
+  const userMessage1 = {
     role: 'user',
     content: `Hi, here is the prompt that I'm writing about: ${prompt}
     Here is what I've written so far. ${draft}
     Please assist me in my writing process without writing on behalf of me.`
   }
+  const assistantMessage = {
+    role: 'assistant',
+    content: await getChatCompletion([systemMessage, userMessage1], maxTokens)
+  }
+  const userMessage2 = {
+    role: 'user',
+    content: `Summarize the feedback above into a concise summary that is 100 words long.`
+  }
 
-  return getChatCompletion([systemMessage, userMessage], maxTokens);
+  return getChatCompletion([systemMessage, userMessage1, assistantMessage, userMessage2], maxTokens);
 }
 
 export async function writeStory(prompt: string, maxTokens=1024) {

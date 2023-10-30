@@ -84,7 +84,7 @@ function App() {
   };
 
   const sendChatCompletion = () => { 
-    getFeedback(prompt, userText, 512).then((aiFeedback) => {
+    getFeedback(prompt, userText, 1024).then((aiFeedback) => {
       setFeedback(aiFeedback);
     });
   };
